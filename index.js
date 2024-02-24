@@ -110,7 +110,7 @@ const quoteBody = (SFDCObjDetails, quoteConfig, quoteObj) => {
 /**
  * Checks merge rules for filtering items.
  *
- * @param {Object[]} allItems - All items to check against merge rules.
+ * @param {Object[]} allItems - All line items to check against merge rules.
  * @param {Object[]} mergeRule - Merge rules to apply.
  * @param {Object} sectionConfig - Configuration for quote sections.
  * @returns {Object[]} - Filtered items.
