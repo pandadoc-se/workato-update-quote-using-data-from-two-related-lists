@@ -34,10 +34,6 @@ const quoteConfig = [{
 /*
 IMPROVEMENTS
 
-- Recurring Items
-
-
-
 THINGS IT DOES
 - Retrieves every quote in a document which has a merge rule that Object = The SF Object's Name.
 - Updates these quotes with row data pulled from the second Salesforce Related Object.
