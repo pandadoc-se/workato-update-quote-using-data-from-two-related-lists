@@ -32,7 +32,6 @@ const quoteConfig = [{
 
 
 /*
-IMPROVEMENTS
 
 THINGS IT DOES
 - Retrieves every quote in a document which has a merge rule that Object = The SF Object's Name.

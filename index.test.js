@@ -157,11 +157,11 @@ describe('checkMergeRules function unit tests ', () => {
         }
     ];
     const mergeRule = [{
-        "id": "cce6e635-7b18-4381-9ef8-c74168a99d4c",
+        "id": "123",
         "enabled": true,
         "action": {
             "type": "merge_to_section",
-            "section_id": "700ce57e-f107-4ea7-a5b9-b18c2da57f6c"
+            "section_id": "123"
         },
         "condition": {
             "field_name": "name",
@@ -173,7 +173,7 @@ describe('checkMergeRules function unit tests ', () => {
         }
     }];
     const resultcheckMergeRules = [{
-        id: '700ce57e-f107-4ea7-a5b9-b18c2da57f6c',
+        id: '123',
         items: [
           { price: 50, name: 'Object 1', qty: 2 },
           { price: 20, name: 'PRODUCT', qty: 2 }
@@ -201,65 +201,35 @@ describe('quoteBody function unit tests ', () => {
     const SFDCObjDetails = [{
             "attributes": {
                 "type": "Custom_Object__c",
-                "url": "/services/data/v59.0/sobjects/Custom_Object__c/a090900000Mq9MdAAJ"
+                "url": "/services/data/v59.0/sobjects/Custom_Object__c/123"
             },
-            "CreatedById": "00509000007SktlAAC",
-            "CreatedDate": "2024-02-20T17:24:33.000000+00:00",
             "Name": "Object 1",
-            "IsDeleted": false,
-            "LastModifiedById": "00509000007SktlAAC",
-            "LastModifiedDate": "2024-02-20T17:24:33.000000+00:00",
-            "OwnerId": "00509000007SktlAAC",
-            "Id": "a090900000Mq9MdAAJ",
-            "SystemModstamp": "2024-02-20T17:24:33.000000+00:00",
+            "Id": "123",
             "Description__c": null,
             "Price__c": 50,
-            "Quantity__c": 2,
-            "Opportunity__c": "0060900000WSI4jAAH",
-            "Related_Product__c": null,
-            "CombinedAttachments": null
+            "Quantity__c": 2
         },
         {
             "attributes": {
                 "type": "Custom_Object__c",
-                "url": "/services/data/v59.0/sobjects/Custom_Object__c/a090900000Mq9bTAAR"
+                "url": "/services/data/v59.0/sobjects/Custom_Object__c/123"
             },
-            "CreatedById": "00509000007SktlAAC",
-            "CreatedDate": "2024-02-22T13:25:55.000000+00:00",
             "Name": "TEST Object",
-            "IsDeleted": false,
-            "LastModifiedById": "00509000007SktlAAC",
-            "LastModifiedDate": "2024-02-22T13:25:55.000000+00:00",
-            "OwnerId": "00509000007SktlAAC",
-            "Id": "a090900000Mq9bTAAR",
-            "SystemModstamp": "2024-02-22T13:25:55.000000+00:00",
+            "Id": "123",
             "Description__c": null,
             "Price__c": 5,
-            "Quantity__c": 5,
-            "Opportunity__c": "0060900000WSI4jAAH",
-            "Related_Product__c": null,
-            "CombinedAttachments": null
+            "Quantity__c": 5
         },
         {
             "attributes": {
                 "type": "Custom_Object__c",
-                "url": "/services/data/v59.0/sobjects/Custom_Object__c/a090900000Mq9deAAB"
+                "url": "/services/data/v59.0/sobjects/Custom_Object__c/123"
             },
-            "CreatedById": "00509000007SktlAAC",
-            "CreatedDate": "2024-02-22T18:10:52.000000+00:00",
             "Name": "PRODUCT",
-            "IsDeleted": false,
-            "LastModifiedById": "00509000007SktlAAC",
-            "LastModifiedDate": "2024-02-22T18:10:52.000000+00:00",
-            "OwnerId": "00509000007SktlAAC",
-            "Id": "a090900000Mq9deAAB",
-            "SystemModstamp": "2024-02-22T18:10:52.000000+00:00",
+            "Id": "123",
             "Description__c": null,
             "Price__c": 20,
-            "Quantity__c": 2,
-            "Opportunity__c": "0060900000WSI4jAAH",
-            "Related_Product__c": null,
-            "CombinedAttachments": null
+            "Quantity__c": 2
         }
     ];
     const quoteObj = {
@@ -484,8 +454,8 @@ mockFetch.mockResolvedValue({
 });
 
 describe('sendRequest Function integration test, request to PandaDoc API', () => {
-    const docId = "zDJ4QWhXE6UCNDHDUvHdhd";
-    const quoteId = "e84ceaab-5077-465f-8921-5a53aee401b9";
+    const docId = process.env.DOC_ID;
+    const quoteId = process.env.QUOTE_ID;
     const pandaDocAuth = process.env.PANDADOC_AUTH;
     const reqBody = {
         "sections": [
