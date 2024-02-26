@@ -177,18 +177,24 @@ const checkMergeRules = (allItems, mergeRule, sectionConfig) => {
  */
 const sendRequest = async (docId, quoteId, pandaDocAuth, reqBody) => {
     const url = `https://api.pandadoc.com/public/v1/documents/${docId}/quotes/${quoteId}`;
-    await fetch(url, {
+    const responseRaw = await fetch(url, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': pandaDocAuth
         },
         body: JSON.stringify(reqBody),
-    })
+    });
+    const response = await responseRaw.json();
+
+    return response
 };
 
+
+//Exporting for testing purposes
 module.exports = {
     filterQuoteObjs,
     checkMergeRules,
-    quoteBody
+    quoteBody,
+    sendRequest
 };

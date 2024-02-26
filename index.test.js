@@ -3,10 +3,7 @@
 
 const { filterQuoteObjs, checkMergeRules, quoteBody } = require('./index');
 
-
-describe('index.js tests ', () => {
-
-    //filterQuoteObjs Tests
+describe('filterQuoteObjs function unit tests ', () => {
     const SFDCObjName = "Custom_Object__c";
     const quoteDetails = [
         {
@@ -120,17 +117,18 @@ describe('index.js tests ', () => {
         }]
     }];
 
-    it('should return the expected result', () => {
+    test('should return the expected result', () => {
         expect(filterQuoteObjs(quoteDetails, SFDCObjName)).toEqual(resultfilterQuoteObjs);
     });
-    it('should return an empty array if no matches are found', () => {
+    test('should return an empty array if no matches are found', () => {
         expect(filterQuoteObjs([], SFDCObjName)).toEqual([]);
     });
-    it('should return an empty array if no matches are found', () => {
+    test('should return an empty array if no matches are found', () => {
         expect(filterQuoteObjs(quoteDetails, "")).toEqual([]);
     });
+});
 
-    // checkMergeRules Tests
+describe('checkMergeRules function unit tests ', () => {
     const sectionConfig = {
         quoteSectionName: "Section Title",
         SFDC_ObjectValues: {
@@ -183,11 +181,12 @@ describe('index.js tests ', () => {
         settings: { optional: false }
       }]
 
-    it('should correctly filter items based on merge rules', () => {
+    test('should correctly filter items based on merge rules', () => {
         expect(checkMergeRules(allItems, mergeRule, sectionConfig)).toEqual(resultcheckMergeRules);
     });
+});
 
-    // quoteBody Tests
+describe('quoteBody function unit tests ', () => {
     const quoteConfig = [{
         quoteSectionName: "Section Title",
         SFDC_ObjectValues: {
@@ -302,10 +301,217 @@ describe('index.js tests ', () => {
         }]
     }
 
-    it('should return the Request Body for PUT API request', () => {
+    test('should return the Request Body for PUT API request', () => {
         expect(quoteBody(SFDCObjDetails, quoteConfig, quoteObj)).toEqual(resultQuoteBody);
     });
 });
 
+//index.js integration tests
+require('dotenv').config();
+const { sendRequest } = require('./index');
+const mockFetch = require("node-fetch");
+jest.mock("node-fetch");
+
+
+const responseData = {
+    "id": "e84ceaab-5077-465f-8921-5a53aee401b9",
+    "currency": "USD",
+    "total": "120",
+    "summary": {
+        "total": "120",
+        "subtotal": "0",
+        "one_time_subtotal": "0",
+        "recurring_subtotal": [],
+        "total_qty": null,
+        "custom_fields": {},
+        "discounts": {},
+        "fees": {},
+        "taxes": {},
+        "total_discount": null,
+        "total_tax": null,
+        "total_fee": null,
+        "total_savings": null,
+        "total_contract_value": null
+    },
+    "sections": [
+        {
+            "id": "700ce57e-f107-4ea7-a5b9-b18c2da57f6c",
+            "name": "Section 1",
+            "total": "120",
+            "summary": {
+                "total": "120",
+                "subtotal": "0",
+                "one_time_subtotal": "0",
+                "recurring_subtotal": [],
+                "total_qty": null,
+                "custom_fields": {},
+                "discounts": {},
+                "fees": {},
+                "taxes": {},
+                "total_section_value": null
+            },
+            "columns": [
+                {
+                    "header": "Name",
+                    "name": "Name",
+                    "merge_name": "Name",
+                    "hidden": false
+                },
+                {
+                    "header": "Description",
+                    "name": "Description",
+                    "merge_name": "Description",
+                    "hidden": false
+                },
+                {
+                    "header": "Price",
+                    "name": "Price",
+                    "merge_name": "Price",
+                    "hidden": false
+                },
+                {
+                    "header": "Quantity",
+                    "name": "Quantity",
+                    "merge_name": "Quantity",
+                    "hidden": false
+                },
+                {
+                    "header": "Total",
+                    "name": "Total",
+                    "merge_name": "Total",
+                    "hidden": false
+                },
+                {
+                    "header": "SKU",
+                    "name": "SKU",
+                    "merge_name": "SKU",
+                    "hidden": true
+                },
+                {
+                    "header": "Cost",
+                    "name": "Cost",
+                    "merge_name": "Cost",
+                    "hidden": true
+                }
+            ],
+            "items": [
+                {
+                    "id": "38000b32-2371-4b21-a15e-6d9313a04a13",
+                    "sku": "#",
+                    "name": "TEST product333",
+                    "description": "",
+                    "qty": "5",
+                    "price": "24",
+                    "cost": "0",
+                    "billing_frequency": null,
+                    "contract_term": null,
+                    "pricing_method": "flat",
+                    "type": "product",
+                    "reference_type": "public-api",
+                    "reference_id": "",
+                    "options": {
+                        "qty_editable": false,
+                        "selected": true
+                    },
+                    "custom_columns": {},
+                    "multipliers": {},
+                    "discounts": {},
+                    "fees": {},
+                    "taxes": {},
+                    "total": "120",
+                    "overall_total": null,
+                    "merged_data": {
+                        "Name": "TEST product333",
+                        "Description": "",
+                        "Price": "24",
+                        "Quantity": "5",
+                        "SKU": "#",
+                        "Cost": "0"
+                    }
+                }
+            ],
+            "settings": {
+                "selection_type": "custom",
+                "optional": false,
+                "selected": true
+            }
+        }
+    ],
+    "merge_rules": [
+        {
+            "id": "2162157a-a5fb-472b-b5f6-e55cfe8b90f6",
+            "enabled": true,
+            "action": {
+                "type": "merge_to_section",
+                "section_id": "700ce57e-f107-4ea7-a5b9-b18c2da57f6c"
+            },
+            "condition": {
+                "field_name": "Object",
+                "type": "contains_field",
+                "comparison": [
+                    {
+                        "type": "contains",
+                        "value": "Custom_Object__c"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "cce6e635-7b18-4381-9ef8-c74168a99d4c",
+            "enabled": true,
+            "action": {
+                "type": "merge_to_section",
+                "section_id": "700ce57e-f107-4ea7-a5b9-b18c2da57f6c"
+            },
+            "condition": {
+                "field_name": "name",
+                "type": "contains_field",
+                "comparison": [
+                    {
+                        "type": "contains",
+                        "value": "TEST"
+                    }
+                ]
+            }
+        }
+    ],
+    "settings": {
+        "selection_type": "custom"
+    }
+};
+mockFetch.mockResolvedValue({
+    json: jest.fn().mockResolvedValue(responseData)
+});
+
+describe('sendRequest Function integration test, request to PandaDoc API', () => {
+    const docId = "zDJ4QWhXE6UCNDHDUvHdhd";
+    const quoteId = "e84ceaab-5077-465f-8921-5a53aee401b9";
+    const pandaDocAuth = process.env.PANDADOC_AUTH;
+    const reqBody = {
+        "sections": [
+            {
+                "id": "700ce57e-f107-4ea7-a5b9-b18c2da57f6c",
+                "items": [
+                    {
+                        "name": "TEST product333",
+                        "qty": 5,
+                        "price": 24
+                    }
+                ],
+                "settings": {
+                    "optional": false
+                }
+            }
+        ]
+    };
+
+
+    test('Send PUT request to PandaDoc API', async () => {
+        const result = await sendRequest(docId, quoteId, pandaDocAuth, reqBody);
+
+        expect(typeof result.id).toBe('string');
+        expect(result).toEqual(responseData);
+    })
+});
 
 
