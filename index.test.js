@@ -284,7 +284,7 @@ jest.mock("node-fetch");
 
 
 const responseData = {
-    "id": process.env.QUOTE_ID,
+    "id": "e84ceaab-5077-465f-8921-5a53aee401b9",
     "currency": "USD",
     "total": "120",
     "summary": {
@@ -305,7 +305,7 @@ const responseData = {
     },
     "sections": [
         {
-            "id": process.env.SECTION_ID,
+            "id": "700ce57e-f107-4ea7-a5b9-b18c2da57f6c",
             "name": "Section 1",
             "total": "120",
             "summary": {
@@ -413,7 +413,7 @@ const responseData = {
             "enabled": true,
             "action": {
                 "type": "merge_to_section",
-                "section_id": process.env.SECTION_ID
+                "section_id": "700ce57e-f107-4ea7-a5b9-b18c2da57f6c"
             },
             "condition": {
                 "field_name": "Object",
@@ -431,7 +431,7 @@ const responseData = {
             "enabled": true,
             "action": {
                 "type": "merge_to_section",
-                "section_id": process.env.SECTION_ID
+                "section_id": "700ce57e-f107-4ea7-a5b9-b18c2da57f6c"
             },
             "condition": {
                 "field_name": "name",
