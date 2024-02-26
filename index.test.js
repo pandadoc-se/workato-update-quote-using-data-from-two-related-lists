@@ -233,13 +233,13 @@ describe('quoteBody function unit tests ', () => {
         }
     ];
     const quoteObj = {
-        id: 'a16608bc-9edf-49a3-a155-e1b71629ff79',
+        id: 'ab',
         mergeRule: [{
-            id: 'bdb8272c-97cd-4977-9ae9-d14d9c259eac',
+            id: 'a',
             enabled: true,
             action: {
                 type: 'merge_to_section',
-                section_id: '700ce57e-f107-4ea7-a5b9-b18c2da57f6c'
+                section_id: '123'
             },
             condition: {
                 field_name: 'name',
@@ -253,7 +253,7 @@ describe('quoteBody function unit tests ', () => {
     };
     const resultQuoteBody = {
         sections: [{
-            id: '700ce57e-f107-4ea7-a5b9-b18c2da57f6c',
+            id: '123',
             items: [{
                     price: 50,
                     name: 'Object 1',
@@ -284,7 +284,7 @@ jest.mock("node-fetch");
 
 
 const responseData = {
-    "id": "e84ceaab-5077-465f-8921-5a53aee401b9",
+    "id": process.env.QUOTE_ID,
     "currency": "USD",
     "total": "120",
     "summary": {
@@ -305,7 +305,7 @@ const responseData = {
     },
     "sections": [
         {
-            "id": "700ce57e-f107-4ea7-a5b9-b18c2da57f6c",
+            "id": process.env.SECTION_ID,
             "name": "Section 1",
             "total": "120",
             "summary": {
@@ -413,7 +413,7 @@ const responseData = {
             "enabled": true,
             "action": {
                 "type": "merge_to_section",
-                "section_id": "700ce57e-f107-4ea7-a5b9-b18c2da57f6c"
+                "section_id": process.env.SECTION_ID
             },
             "condition": {
                 "field_name": "Object",
@@ -431,7 +431,7 @@ const responseData = {
             "enabled": true,
             "action": {
                 "type": "merge_to_section",
-                "section_id": "700ce57e-f107-4ea7-a5b9-b18c2da57f6c"
+                "section_id": process.env.SECTION_ID
             },
             "condition": {
                 "field_name": "name",
@@ -457,10 +457,11 @@ describe('sendRequest Function integration test, request to PandaDoc API', () =>
     const docId = process.env.DOC_ID;
     const quoteId = process.env.QUOTE_ID;
     const pandaDocAuth = process.env.PANDADOC_AUTH;
+    const sectionId = process.env.SECTION_ID;
     const reqBody = {
         "sections": [
             {
-                "id": "700ce57e-f107-4ea7-a5b9-b18c2da57f6c",
+                "id": sectionId,
                 "items": [
                     {
                         "name": "TEST product333",
